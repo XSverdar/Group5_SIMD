@@ -31,9 +31,12 @@ void c_stencil(size_t n, int32_t* x, int32_t* y) {
 int main(int argc, char* argv[]) {
 	size_t ARRAY_SIZE = 2 << 20;
 	size_t ARRAY_BYTES = ARRAY_SIZE * sizeof(int32_t);
-	int i, j; // counter variables
 
-	// timer variables
+	// COUNTER VARIABLES
+	int i, j, lastIndex, fail;
+
+	// TIMER VARIABLES
+	// reference: https://cse.usf.edu/~kchriste/tools/timeitWin.c
 	double pcFreq; // Counter frequency (timer resolution)
 	__int64 counterStart; // Timer value
 	LARGE_INTEGER li; // Large interger for timer value
@@ -47,23 +50,25 @@ int main(int argc, char* argv[]) {
 		printf("ERROR: QueryPerformanceFrequency() failed \n");
 	pcFreq = li.QuadPart;
 
-	int32_t* x, * y;
+	// array initialization
+	int32_t* x, * y, * answerKey;
 	x = (int32_t*)malloc(ARRAY_BYTES);
 	y = (int32_t*)malloc(ARRAY_BYTES);
-
-	// array initialization
+	answerKey = (int32_t*)malloc(ARRAY_BYTES);
 	for (j = 0; j < ARRAY_SIZE; j++) {
 		x[j] = rand();
 		y[j] = 0;
 	}
 
 	// ----------- 2 ^ 20 -----------
-	for (i = 0; i <= 120; i++) {
-		if (i <= 30) {
+	for (i = 0; i < 120; i++) {
+		if (i < 30) {
 			if (i == 0) {
 				printf("=== C (2^20) ===\n");
 				printf("Number of elements: %zd\n", ARRAY_SIZE);
 			}
+
+			c_stencil(ARRAY_SIZE, x, y); // disregard time of every first run
 
 			QueryPerformanceCounter(&li);
 			counterStart = li.QuadPart;
@@ -72,44 +77,51 @@ int main(int argc, char* argv[]) {
 
 			QueryPerformanceCounter(&li);
 			time_taken = 1000.0 * ((li.QuadPart - counterStart) / pcFreq);
-			printf("Time in C = %f ms\n", time_taken);
+			printf("[%d] Time in C = %f ms\n", i+1, time_taken);
 
 			average_time = average_time + time_taken;
 
-			if (i == 30) {
+			if (i == 29) {
+				memcpy(answerKey, y, sizeof(answerKey));
+
 				printf("Average Time in C (2^20): %f ms\n", average_time / 30);
 				average_time = 0;
 
-				// TO-DO 1: fix these print statements so
-				// a. they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223) pero i think this has smth to do with stencil()
-				// b. actually print the first and last 10 *valid* elements of the array instead of just based on the size
+				// get last index
+				for (j = (ARRAY_SIZE - 1);j > 0;j--) {
+					if (y[j] != 0) {
+						lastIndex = j;
+						break;
+					}
+				};
+
 				printf("First 10 elements of Y -> ");
-				for (j = 0;j < 10;j++)
-				{
-					if (y[j] != 0)
-						printf("%d  ", y[j]);
+				for (j = 0;j < 10;j++) {
+					if (j <= lastIndex && y[j] != 0) // don't print beyond last index
+						printf("%d ", y[j]);
 				}
 				printf("\nLast 10 elements of Y -> ");
-				for (j = (ARRAY_SIZE - 10);j < ARRAY_SIZE;j++)
-				{
-					if (y[j] != 0)
-						printf("%d  ", y[j]);
-				}
+				for (j = (lastIndex-10);j <= lastIndex;j++) {
+					if (j >= 0 && y[j] != 0) // dont print beyond first index
+						printf("%d ", y[j]);
+				};
+
 				printf("\n");
 			}
 		}
 
 		// ============= NONSIMD VERSION =============
-		else if (i > 30 && i <= 60) {
-			if (i == 31) {
+		else if (i >= 30 && i < 60) {
+			if (i == 30) {
 				printf("\n=== NON-SIMD (2^20) ===\n");
 				printf("Number of elements: %zd\n", ARRAY_SIZE);
 
 				for (j = 0; j < ARRAY_SIZE; j++) {
-					x[j] = rand();
 					y[j] = 0;
 				}
 			}
+
+			nonsimd_stencil(ARRAY_SIZE, x, y); // disregard time of every first run
 
 			QueryPerformanceCounter(&li);
 			counterStart = li.QuadPart;
@@ -118,44 +130,59 @@ int main(int argc, char* argv[]) {
 
 			QueryPerformanceCounter(&li);
 			time_taken = 1000.0 * ((li.QuadPart - counterStart) / pcFreq);
-			printf("Time in NON-SIMD = %f ms\n", time_taken);
+			printf("[%d] Time in NON-SIMD = %f ms\n", i-29, time_taken);
 
 			average_time = average_time + time_taken;
 
-			if (i == 60) {
+			if (i == 59) {
 				printf("Average Time in NON-SIMD (2^20): %f ms\n", average_time / 30);
 				average_time = 0;
 
-				// TO-DO 1: fix these print statements so
-				// a. they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223) pero i think this has smth to do with stencil()
-				// b. actually print the first and last 10 *valid* elements of the array instead of just based on the size
+				// get last index
+				for (j = (ARRAY_SIZE - 1);j > 0;j--) {
+					if (y[j] != 0) {
+						lastIndex = j;
+						break;
+					}
+				};
+
 				printf("First 10 elements of Y -> ");
-				for (j = 0;j < 10;j++)
-				{
-					if (y[j] != 0)
-						printf("%d  ", y[j]);
+				for (j = 0;j < 10;j++) {
+					if (j <= lastIndex && y[j] != 0) // don't print beyond last index
+						printf("%d ", y[j]);
 				}
 				printf("\nLast 10 elements of Y -> ");
-				for (j = (ARRAY_SIZE - 10);j < ARRAY_SIZE;j++)
-				{
-					if (y[j] != 0)
-						printf("%d  ", y[j]);
-				}
+				for (j = (lastIndex - 10);j <= lastIndex;j++) {
+					if (j >= 0 && y[j] != 0) // dont print beyond first index
+						printf("%d ", y[j]);
+				};
+
 				printf("\n");
+
+				fail = 0;
+				for (j = 0; j < ARRAY_SIZE; j++) {
+					if (answerKey[j] != y[j])
+						fail += 1;
+				}
+				if (fail > 0)
+					printf("NON-SIMD IS INCORRECT\n");
+				else
+					printf("NON-SIMD IS CORRECT\n");
 			}
 		}
 
 		// ============= XMM VERSION =============
-		else if (i > 60 && i <= 90) {
-			if (i == 61) {
+		else if (i >= 60 && i < 90) {
+			if (i == 60) {
 				printf("\n=== SIMD XMM (2^20) ===\n");
 				printf("Number of elements: %zd\n", ARRAY_SIZE);
 
 				for (j = 0; j < ARRAY_SIZE; j++) {
-					x[j] = rand();
 					y[j] = 0;
 				}
 			}
+
+			simdxmm_stencil(ARRAY_SIZE, x, y); // disregard time of every first run
 
 			QueryPerformanceCounter(&li);
 			counterStart = li.QuadPart;
@@ -164,44 +191,59 @@ int main(int argc, char* argv[]) {
 
 			QueryPerformanceCounter(&li);
 			time_taken = 1000.0 * ((li.QuadPart - counterStart) / pcFreq);
-			printf("Time in SIMD XMM = %f ms\n", time_taken);
+			printf("[%d] Time in SIMD XMM = %f ms\n", i-59, time_taken);
 
 			average_time = average_time + time_taken;
 
-			if (i == 90) {
+			if (i == 89) {
 				printf("Average Time in SIMD XMM (2^20): %f ms\n", average_time / 30);
 				average_time = 0;
 
-				// TO-DO 1: fix these print statements so
-				// a. they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223) pero i think this has smth to do with stencil()
-				// b. actually print the first and last 10 *valid* elements of the array instead of just based on the size
+				// get last index
+				for (j = (ARRAY_SIZE - 1);j > 0;j--) {
+					if (y[j] != 0) {
+						lastIndex = j;
+						break;
+					}
+				};
+
 				printf("First 10 elements of Y -> ");
-				for (j = 0;j < 10;j++)
-				{
-					if (y[j] != 0)
-						printf("%d  ", y[j]);
+				for (j = 0;j < 10;j++) {
+					if (j <= lastIndex && y[j] != 0) // don't print beyond last index
+						printf("%d ", y[j]);
 				}
 				printf("\nLast 10 elements of Y -> ");
-				for (j = (ARRAY_SIZE - 10);j < ARRAY_SIZE;j++)
-				{
-					if (y[j] != 0)
-						printf("%d  ", y[j]);
-				}
+				for (j = (lastIndex - 10);j <= lastIndex;j++) {
+					if (j >= 0 && y[j] != 0) // dont print beyond first index
+						printf("%d ", y[j]);
+				};
+
 				printf("\n");
+
+				fail = 0;
+				for (j = 0; j < ARRAY_SIZE; j++) {
+					if (answerKey[j] != y[j])
+						fail += 1;
+				}
+				if (fail > 0)
+					printf("SIMD XMM IS INCORRECT\n");
+				else
+					printf("SIMD XMM IS CORRECT\n");
 			}
 		}
 
 		// ============= YMM VERSION =============
-		else if (i > 90 && i <= 120) {
-			if (i == 91) {
+		else if (i >= 90 && i < 120) {
+			if (i == 90) {
 				printf("\n=== SIMD YMM (2^20) ===\n");
 				printf("Number of elements: %zd\n", ARRAY_SIZE);
 
 				for (j = 0; j < ARRAY_SIZE; j++) {
-					x[j] = rand();
 					y[j] = 0;
 				}
 			}
+
+			simdymm_stencil(ARRAY_SIZE, x, y); // disregard time of every first run
 
 			QueryPerformanceCounter(&li);
 			counterStart = li.QuadPart;
@@ -210,38 +252,52 @@ int main(int argc, char* argv[]) {
 
 			QueryPerformanceCounter(&li);
 			time_taken = 1000.0 * ((li.QuadPart - counterStart) / pcFreq);
-			printf("Time in SIMD YMM = %f ms\n", time_taken);
+			printf("[%d] Time in SIMD YMM = %f ms\n", i-89, time_taken);
 
 			average_time = average_time + time_taken;
 
-			if (i == 120) {
+			if (i == 119) {
 				printf("Average Time in SIMD YMM (2^20): %f ms\n", average_time / 30);
 				average_time = 0;
 
-				// TO-DO 1: fix these print statements so
-				// a. they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223) pero i think this has smth to do with stencil()
-				// b. actually print the first and last 10 *valid* elements of the array instead of just based on the size
+				// get last index
+				for (j = (ARRAY_SIZE - 1);j > 0;j--) {
+					if (y[j] != 0) {
+						lastIndex = j;
+						break;
+					}
+				};
+
 				printf("First 10 elements of Y -> ");
-				for (j = 0;j < 10;j++)
-				{
-					if (y[j] != 0)
-						printf("%d  ", y[j]);
+				for (j = 0;j < 10;j++) {
+					if (j <= lastIndex && y[j] != 0) // don't print beyond last index
+						printf("%d ", y[j]);
 				}
 				printf("\nLast 10 elements of Y -> ");
-				for (j = (ARRAY_SIZE - 10);j < ARRAY_SIZE;j++)
-				{
-					if (y[j] != 0)
-						printf("%d  ", y[j]);
-				}
+				for (j = (lastIndex - 10);j <= lastIndex;j++) {
+					if (j >= 0 && y[j] != 0) // dont print beyond first index
+						printf("%d ", y[j]);
+				};
+
 				printf("\n");
+
+				fail = 0;
+				for (j = 0; j < ARRAY_SIZE; j++) {
+					if (answerKey[j] != y[j])
+						fail += 1;
+				}
+				if (fail > 0)
+					printf("SIMD YMM IS INCORRECT\n");
+				else
+					printf("SIMD YMM IS CORRECT\n");
 			}
 		}
 	}
 
-	// TO-DO 2: error checking
-
-	// TO-DO 3: for easy testing, we'll only have 2^20 first but once all functions are 100% working, we'll include 2^26, 2^30, and 2^31
-
+	// ----------- 2 ^ 26 -----------
+	// ----------- 2 ^ 30 -----------
+	// ----------- 2 ^ 31 -----------
+	// TO-DO 2: for easy testing, we'll only have 2^20 first but once all functions are 100% working, we'll include 2^26, 2^30, and 2^31
 	//free(x);
 	//free(y);
 
