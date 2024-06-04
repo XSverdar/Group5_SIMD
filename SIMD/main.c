@@ -80,7 +80,9 @@ int main(int argc, char* argv[]) {
 				printf("Average Time in C (2^20): %f ms\n", average_time / 30);
 				average_time = 0;
 
-				// TO-DO 1: fix these print statements so they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223)
+				// TO-DO 1: fix these print statements so
+				// a. they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223) pero i think this has smth to do with stencil()
+				// b. actually print the first and last 10 *valid* elements of the array instead of just based on the size
 				printf("First 10 elements of Y -> ");
 				for (j = 0;j < 10;j++)
 				{
@@ -124,11 +126,21 @@ int main(int argc, char* argv[]) {
 				printf("Average Time in NON-SIMD (2^20): %f ms\n", average_time / 30);
 				average_time = 0;
 
-				// -30 indeces
+				// TO-DO 1: fix these print statements so
+				// a. they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223) pero i think this has smth to do with stencil()
+				// b. actually print the first and last 10 *valid* elements of the array instead of just based on the size
 				printf("First 10 elements of Y -> ");
-				//
+				for (j = 0;j < 10;j++)
+				{
+					if (y[j] != 0)
+						printf("%d  ", y[j]);
+				}
 				printf("\nLast 10 elements of Y -> ");
-				//
+				for (j = (ARRAY_SIZE - 10);j < ARRAY_SIZE;j++)
+				{
+					if (y[j] != 0)
+						printf("%d  ", y[j]);
+				}
 				printf("\n");
 			}
 		}
@@ -160,11 +172,21 @@ int main(int argc, char* argv[]) {
 				printf("Average Time in SIMD XMM (2^20): %f ms\n", average_time / 30);
 				average_time = 0;
 
-				//-60 indeces
+				// TO-DO 1: fix these print statements so
+				// a. they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223) pero i think this has smth to do with stencil()
+				// b. actually print the first and last 10 *valid* elements of the array instead of just based on the size
 				printf("First 10 elements of Y -> ");
-				//
+				for (j = 0;j < 10;j++)
+				{
+					if (y[j] != 0)
+						printf("%d  ", y[j]);
+				}
 				printf("\nLast 10 elements of Y -> ");
-				//
+				for (j = (ARRAY_SIZE - 10);j < ARRAY_SIZE;j++)
+				{
+					if (y[j] != 0)
+						printf("%d  ", y[j]);
+				}
 				printf("\n");
 			}
 		}
@@ -196,11 +218,21 @@ int main(int argc, char* argv[]) {
 				printf("Average Time in SIMD YMM (2^20): %f ms\n", average_time / 30);
 				average_time = 0;
 
-				//-90 indeces
+				// TO-DO 1: fix these print statements so
+				// a. they dont print out garbage after the actual answer (ex. 28, 35, 342323523, 32355223) pero i think this has smth to do with stencil()
+				// b. actually print the first and last 10 *valid* elements of the array instead of just based on the size
 				printf("First 10 elements of Y -> ");
-				//
+				for (j = 0;j < 10;j++)
+				{
+					if (y[j] != 0)
+						printf("%d  ", y[j]);
+				}
 				printf("\nLast 10 elements of Y -> ");
-				//
+				for (j = (ARRAY_SIZE - 10);j < ARRAY_SIZE;j++)
+				{
+					if (y[j] != 0)
+						printf("%d  ", y[j]);
+				}
 				printf("\n");
 			}
 		}
