@@ -53,12 +53,10 @@ main_loop:
     inc r8
 
 next_iteration:
-    ; Increment loop counter (rcx)
     inc rcx
     jmp main_loop
 
 end_loop:
-    ; Epilogue
     pop rbx
     pop rbp
     ret
