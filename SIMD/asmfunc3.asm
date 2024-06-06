@@ -42,13 +42,14 @@ loop:
     phaddd xmm0, xmm0
     phaddd xmm0, xmm0
 
-    movd [rdx + r9 * 4], xmm0
+    ;movd [rdx + r9 * 4], xmm0
+    vmovdqu [rdx + r9 * 4], xmm0
     inc r9
 
 next:
     inc r8
     jmp loop
     
-end:
+done:
     pop rbp
     ret

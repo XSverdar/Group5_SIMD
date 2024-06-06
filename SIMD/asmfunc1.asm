@@ -10,9 +10,12 @@ extern printf
 nonsimd_stencil:
     ; Function signature: void nonsimd_stencil(size_t n, int32_t* x, int32_t* y)
     ; Arguments:
-    ;   n:  rdi
-    ;   x:  rsi
-    ;   y:  rdx
+    ;   n:  rcx -> rdi
+    ;   x:  rdx -> rsi
+    ;   y:  r8 -> rdx
+    mov rdi, rcx
+    mov rsi, rdx
+    mov rdx, r8
 
     ; Prologue
     push rbp

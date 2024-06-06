@@ -29,7 +29,8 @@ void c_stencil(size_t n, int32_t* x, int32_t* y) {
 }
 
 int main(int argc, char* argv[]) {
-	size_t ARRAY_SIZE = 2 << 20;
+	//size_t ARRAY_SIZE = 2 << 20;
+	size_t ARRAY_SIZE = 8;
 	size_t ARRAY_BYTES = ARRAY_SIZE * sizeof(int32_t);
 
 	// COUNTER VARIABLES
@@ -56,7 +57,7 @@ int main(int argc, char* argv[]) {
 	y = (int32_t*)malloc(ARRAY_BYTES);
 	answerKey = (int32_t*)malloc(ARRAY_BYTES);
 	for (j = 0; j < ARRAY_SIZE; j++) {
-		x[j] = rand();
+		x[j] = j + 1;//rand();
 		y[j] = 0;
 	}
 
@@ -160,7 +161,7 @@ int main(int argc, char* argv[]) {
 				printf("\n");
 
 				fail = 0;
-				for (j = 0; j < ARRAY_SIZE; j++) {
+				for (j = 0; j < lastIndex; j++) {
 					if (answerKey[j] != y[j])
 						fail += 1;
 				}
@@ -221,7 +222,7 @@ int main(int argc, char* argv[]) {
 				printf("\n");
 
 				fail = 0;
-				for (j = 0; j < ARRAY_SIZE; j++) {
+				for (j = 0; j < lastIndex; j++) {
 					if (answerKey[j] != y[j])
 						fail += 1;
 				}
@@ -282,7 +283,7 @@ int main(int argc, char* argv[]) {
 				printf("\n");
 
 				fail = 0;
-				for (j = 0; j < ARRAY_SIZE; j++) {
+				for (j = 0; j < lastIndex; j++) {
 					if (answerKey[j] != y[j])
 						fail += 1;
 				}
