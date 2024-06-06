@@ -1,5 +1,3 @@
-section .data
-
 section .text
 bits 64
 default rel
@@ -26,19 +24,18 @@ nonsimd_stencil:
     xor rcx, rcx
     xor r8, r8
 
-    ; Main loop
-main_loop:
-    cmp rcx, rdi                  ; if i >= n, end loop
-    jge end_loop
+main:
+    cmp rcx, rdi        ; if i >= n, end loop
+    jge end
 
     ; Check boundary conditions
     cmp rcx, 3
-    jl next_iteration             ; if i < 3, skip this iteration
+    jl next             ; if i < 3, skip this iteration
 
     mov rax, rdi
     sub rax, 3
     cmp rcx, rax
-    jge next_iteration            ; if i > n - 4, skip this iteration
+    jge next            ; if i > n - 4, skip this iteration
 
     ; Perform stencil computation
     mov eax, [rsi + 4*rcx - 12]   ; eax = x[i-3]
@@ -55,11 +52,11 @@ main_loop:
     ; Increment index (r8)
     inc r8
 
-next_iteration:
+next:
     inc rcx
-    jmp main_loop
+    jmp main
 
-end_loop:
+end:
     pop rbx
     pop rbp
     ret
