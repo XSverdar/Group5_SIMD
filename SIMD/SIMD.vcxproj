@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -138,7 +138,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\nasm\nasm -f win64 asmfunc1.asm</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">asmfunc1.obj</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\nasm\nasm -f win64 asmfunc1.asm</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\nasm\nasm -f win64 asmfunc1.asm</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">asmfunc1.obj</Outputs>
     </CustomBuild>
   </ItemGroup>
@@ -147,9 +147,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\NASM\nasm -f win64 asmfunc2.asm</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\nasm\nasm -f win64 asmfunc2.asm</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">asmfunc2.obj</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\NASM\nasm -f win64 asmfunc2.asm</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\nasm\nasm -f win64 asmfunc2.asm</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">asmfunc2.obj</Outputs>
     </CustomBuild>
   </ItemGroup>
@@ -157,8 +157,11 @@
     <CustomBuild Include="asmfunc3.asm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\NASM\nasm -f win64 asmfunc3.asm</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\nasm\nasm -f win64 asmfunc3.asm</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">asmfunc3.obj</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\nasm\nasm -f win64 asmfunc3.asm</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">asmfunc3.obj</Outputs>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
