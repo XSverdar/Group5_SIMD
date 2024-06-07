@@ -8,28 +8,30 @@
 ## Results
 #### i.) screenshot of the program output with execution time for all cases
 
+##### Debug
 ![image](https://github.com/XSverdar/Group5_SIMD/assets/57384457/1a992e49-c64a-4133-a8c5-3d034bb3da98)
+##### Release
+![image](https://github.com/XSverdar/Group5_SIMD/assets/57384457/0f3a27ad-5e56-4c1e-9680-7a59fb0ae5a4)
 
 
 #### ii.) comparative table of execution time as well as analysis of the performance of different kernels (how many times faster, why is it faster, etc.)
 | Array Size    | Method        | Average Time | Times faster than C | Times faster than Non-SIMD | Times faster than SIMD XMM | Times faster than SIMD YMM |
 |     :---:     | :---:         | :---:        | :---:               | :---:                      | :---:                      | :---:                      |
-| 2^20          | C             | 4.502713 ms  | **-**                   |                            |                            |                            |
+| 2^20          | C (Debug)             | 4.502713 ms  | **-**                   |                            |                            |                            |
+|               | C (Release)             | 1.952240 ms  | **-**                   |                            |                            |                            |
 |               | Non-SIMD      | 2.256923 ms  |                     | **-**                          |                            |                            |
 |               | SIMD XMM      | 0.818280  ms  |                     |                            | **-**                          |                            |
 |               | SIMD YMM      | 0.483967 ms  |                     |                            |                            | **-**                          |
-| 2^26          | C             | 255.368430 ms  | **-**                   |                            |                            |                            |
+| 2^26          | C (Debug)             | 255.368430 ms  | **-**                   |                            |                            |                            |
+|               | C (Release)             | 104.901537 ms  | **-**                   |                            |                            |                            |
 |               | Non-SIMD      | 70.931690 ms |                     | **-**                          |                            |                            |
 |               | SIMD XMM      | 49.222237 ms  |                     |                            | **-**                          |                            |
 |               | SIMD YMM      | 53.066987 ms |                     |                            |                            | **-**                          |
-| 2^30          | C             | 4585.426280 ms | **-**                   |                            |                            |                            |
+| 2^30          | C (Debug)             | 4585.426280 ms | **-**                   |                            |                            |                            |
+|               | C (Release)             | 1627.885453 ms | **-**                   |                            |                            |                            |
 |               | Non-SIMD      | 1448.693463 ms |                     | **-**                          |                            |                            |
 |               | SIMD XMM      | 1103.127543 ms |                     |                            | **-**                          |                            |
 |               | SIMD YMM      | 981.895367 ms |                     |                            |                            | **-**                          |
-| 2^31          | C             |              | **-**                   |                            |                            |                            |
-|               | Non-SIMD      |              |                     | **-**                          |                            |                            |
-|               | SIMD XMM      |              |                     |                            | **-**                          |                            |
-|               | SIMD YMM      |              |                     |                            |                            | **-**                          |
 
 
 #### iii.) screenshot of the program output with correctness check (C)
@@ -38,6 +40,11 @@
 ![image](https://github.com/XSverdar/Group5_SIMD/assets/57384457/7736148a-ce10-4d71-a7e8-faca9ccdf9b1)
 ![image](https://github.com/XSverdar/Group5_SIMD/assets/57384457/a2e7ee30-2ed5-4c53-99a4-e3ecd4c5d311)
 ![image](https://github.com/XSverdar/Group5_SIMD/assets/57384457/49a79599-a3c7-4e49-921e-768a858525eb)
+
+##### Release
+![image](https://github.com/XSverdar/Group5_SIMD/assets/57384457/a12315bc-2516-468a-a521-1078a015af35)
+![image](https://github.com/XSverdar/Group5_SIMD/assets/57384457/f6c6066a-9959-401a-b5aa-8433685565e1)
+![image](https://github.com/XSverdar/Group5_SIMD/assets/57384457/70261c9b-6af1-4e0d-a268-6346c1fb4267)
 
 #### iv.) screenshot of the program output, including correctness check (x86-64)
 
