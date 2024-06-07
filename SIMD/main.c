@@ -301,7 +301,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	srand(time(NULL));
+	srand(time(NULL)+5);
 
 	free(x);
 	free(y);
@@ -558,6 +558,8 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	
+	srand(time(NULL) + 10);
+
 	free(x);
 	free(y);
 	free(answerKey);
