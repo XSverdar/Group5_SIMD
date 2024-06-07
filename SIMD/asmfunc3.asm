@@ -18,16 +18,16 @@ simdymm_stencil:
     ; "L1" iterates through the operations using SIMD YMM registers based on the given process
 L1:
     vmovdqu ymm2, [rdx]
-    vpaddd ymm2, ymm2, [rdx + 32]
-    vpaddd ymm2, ymm2, [rdx + 64]
-    vpaddd ymm2, ymm2, [rdx + 96]
-    vpaddd ymm2, ymm2, [rdx + 128]
-    vpaddd ymm2, ymm2, [rdx + 160]
-    vpaddd ymm2, ymm2, [rdx + 192]
+    vpaddd ymm2, ymm2, [rdx + 4]
+    vpaddd ymm2, ymm2, [rdx + 8]
+    vpaddd ymm2, ymm2, [rdx + 12]
+    vpaddd ymm2, ymm2, [rdx + 16]
+    vpaddd ymm2, ymm2, [rdx + 20]
+    vpaddd ymm2, ymm2, [rdx + 24]
 
     vmovdqu [r8], ymm2
 
-    add rdx, 256
+    add rdx, 32
     add r8, 32
     add rax, 8
 

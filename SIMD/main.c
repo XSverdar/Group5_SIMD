@@ -29,8 +29,8 @@ void c_stencil(size_t n, int32_t* x, int32_t* y) {
 }
 
 int main(int argc, char* argv[]) {
-	//size_t ARRAY_SIZE = 2 << 20;
-	size_t ARRAY_SIZE = 8;
+	size_t ARRAY_SIZE = 2 << 20;
+	//size_t ARRAY_SIZE = 10;
 	size_t ARRAY_BYTES = ARRAY_SIZE * sizeof(int32_t);
 
 	// COUNTER VARIABLES
