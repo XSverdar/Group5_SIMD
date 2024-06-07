@@ -44,7 +44,7 @@
 
 - **For SIMD XMM Implementation:** There were little problems encountered when trying to implement the process in SIMD XMM, the biggest hurdle was thinking of how to create the solution, oftentimes the first thought when trying to implement a certain operation is to just translate it one to one into code, so for better visualization the operation of the process was simulated in MS Excel, that's when the "AHA moment" occurred, at first the main concern was how to work around checking if the array accessing would be out of bounds (i.e. x[i-3] where i-3 < 0), which seemed like a hassle to do since it had to be done twice, once in the beginning and another at the end, but upon further observation of the simulation, there was no need for checking this.
   ![image](https://github.com/XSverdar/Group5_SIMD/assets/108528279/88e9f633-2373-4af0-9dd8-e881fef6b053)
-  As shown in the image above, the process could simply just start at the first index without having to avoid it and add the next 6 values and then the invalid cases can just simply be cut from the operation entirely from the end.
+  As shown in the image above, the process could simply just start at the first index without having to avoid it and add the next 6 values and then the invalid cases can just simply be cut from the operation entirely from the end. So instead of Y[i] = X[i-3] + X[i-2] + X[i-1] + X[i] + X[i+1] + X[i+2] + X[i+3], the process is reformatted into Y[i+3] = X[i] + X[i+1] + X[i+2] + X[i+3] + X[i+4] + X[i+5] + X[i+6], which then means that the process can start immediately as soon as the assembly function is called and does not require any checking whatsoever.
 
 
 - **For SIMD YMM Implementation:** text
