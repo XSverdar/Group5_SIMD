@@ -20,21 +20,15 @@ simdxmm_stencil:
 
 	; "L1"" iterates through the operations using SIMD XMM registers based on the given process
 L1:
-	vmovdqu xmm2, [rdx]
-	vmovdqu xmm1, [rdx + 4]
-	paddd xmm2, xmm1
-	vmovdqu xmm1, [rdx + 8]
-	paddd xmm2, xmm1
-	vmovdqu xmm1, [rdx + 12]
-	paddd xmm2, xmm1
-	vmovdqu xmm1, [rdx + 16]
-	paddd xmm2, xmm1
-	vmovdqu xmm1, [rdx + 20]
-	paddd xmm2, xmm1
-	vmovdqu xmm1, [rdx + 24]
-	paddd xmm2, xmm1
+	vmovdqu xmm1, [rdx]
+	vpaddd xmm1, xmm1, [rdx + 4]
+	vpaddd xmm1, xmm1, [rdx + 8]
+	vpaddd xmm1, xmm1, [rdx + 12]
+	vpaddd xmm1, xmm1, [rdx + 16]
+	vpaddd xmm1, xmm1, [rdx + 20]
+	vpaddd xmm1, xmm1, [rdx + 24]
 
-	vmovdqu [r8], xmm2
+	vmovdqu [r8], xmm1
 
 	add rdx, 16
 	add r8, 16
