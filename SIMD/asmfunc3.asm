@@ -11,9 +11,7 @@ simdymm_stencil:
     mov rbx, rcx
 
     shr rcx, 3            ; Since the input is 32-bit int and ymm is 256-bit, we divide the counter by 8 (256/32 = 8)
-    jrcxz next
-    sub rcx, 1            ; Adjust the counter appropriately for YMM operations
-    jrcxz next        
+    jrcxz next      
 
     ; "L1" iterates through the operations using SIMD YMM registers based on the given process
 L1:
