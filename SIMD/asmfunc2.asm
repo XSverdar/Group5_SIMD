@@ -14,9 +14,7 @@ simdxmm_stencil:
 	mov rbx, rcx
 
 	shr rcx, 2		; Since the input is 32-bit int and xmm is 128-bit, we divide the counter by 4 (128/32 = 4)
-	jrcxz next
-	sub rcx, 2		; The counter is subtracted by 2 to trim off the invalid operations
-	jrcxz next		
+	jrcxz next	
 
 	; "L1"" iterates through the operations using SIMD XMM registers based on the given process
 L1:
