@@ -15,20 +15,20 @@
 
 
 #### ii.) comparative table of execution time as well as analysis of the performance of different kernels (how many times faster, why is it faster, etc.)
-| Array Size    | Method        | Average Time | Times faster than C | Times faster than Non-SIMD | Times faster than SIMD XMM | Times faster than SIMD YMM |
-|     :---:     | :---:         | :---:        | :---:               | :---:                      | :---:                      | :---:                      |
+| Array Size    | Method        | Average Time | Times faster than C (Debug) | Times faster than C (Release) | Times faster than Non-SIMD | Times faster than SIMD XMM | Times faster than SIMD YMM |
+|     :---:     | :---:         | :---:        | :---:               | :---:                      | :---:                      | :---:                      |  :---:                      |
 | 2^20          | C (Debug)             | 4.502713 ms  | **-**                   |                            |                            |                            |
-|               | C (Release)             | 1.952240 ms  | **-**                   |                            |                            |                            |
+|               | C (Release)             | 1.952240 ms  |                    | **-**                          |                            |                            |
 |               | Non-SIMD      | 2.256923 ms  |                     | **-**                          |                            |                            |
 |               | SIMD XMM      | 0.818280  ms  |                     |                            | **-**                          |                            |
 |               | SIMD YMM      | 0.483967 ms  |                     |                            |                            | **-**                          |
 | 2^26          | C (Debug)             | 255.368430 ms  | **-**                   |                            |                            |                            |
-|               | C (Release)             | 104.901537 ms  | **-**                   |                            |                            |                            |
+|               | C (Release)             | 104.901537 ms  |                    | **-**                          |                            |                            |
 |               | Non-SIMD      | 70.931690 ms |                     | **-**                          |                            |                            |
 |               | SIMD XMM      | 49.222237 ms  |                     |                            | **-**                          |                            |
 |               | SIMD YMM      | 53.066987 ms |                     |                            |                            | **-**                          |
 | 2^30          | C (Debug)             | 4585.426280 ms | **-**                   |                            |                            |                            |
-|               | C (Release)             | 1627.885453 ms | **-**                   |                            |                            |                            |
+|               | C (Release)             | 1627.885453 ms |                    | **-**                          |                            |                            |
 |               | Non-SIMD      | 1448.693463 ms |                     | **-**                          |                            |                            |
 |               | SIMD XMM      | 1103.127543 ms |                     |                            | **-**                          |                            |
 |               | SIMD YMM      | 981.895367 ms |                     |                            |                            | **-**                          |
