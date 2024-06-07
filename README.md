@@ -15,6 +15,7 @@ ii.) comparative table of execution time as well as analysis of the performance 
 |               | Non-SIMD      |              |                     |                            |                            |                            |
 |               | SIMD XMM      |              |                     |                            |                            |                            |
 |               | SIMD YMM      |              |                     |                            |                            |                            |
+
 iii.) screenshot of the program output with correctness check (C)
 
 iv.) screenshot of the program output, including correctness check (x86-64)
