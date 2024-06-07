@@ -38,3 +38,9 @@ v.) screenshot of the program output, including correctness check (SIMD XMM regi
 vi.) screenshot of the program output, including correctness check (SIMD, YMM register)
 
 vii.) Discuss the problems encountered and solutions made, unique methodology used, AHA moments, etc.
+
+_to be fixed later/compiled late_
+
+**For Non-SIMD Implementation: **
+Implementing the non-SIMD version of the stencil computation in x86-64 assembly posed minimal challenges in conceptualizing and translating the problem into low-level code. During debugging, issues with accessing invalid indices in the input array, which could lead to segmentation faults and incorrect results, were encountered. To address this, boundary checks were added to ensure the index in the rcx register was valid, skipping iterations when rcx was less than 3 or greater than n - 4. Managing the input arguments n, x, and y required a review of calling conventions and proper register usage. Loop and index management difficulties were mitigated by initializing the loop counter (rcx) and output index (r8) with xor, preventing unintended carry-over from previous values. Understanding memory offsets for accurate array access and prioritizing boundary checks were the "AHA" realizations. Incremental development, thorough testing, and manual offset calculations with extensive comments enhanced control over low-level data manipulation. Effective register usage, particularly employing rcx for looping and r8 for indexing, streamlined the function and reduced complexity significantly.
+
