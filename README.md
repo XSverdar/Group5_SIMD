@@ -1,4 +1,4 @@
-# Deep Dive: SIMD programming project
+![image](https://github.com/XSverdar/Group5_SIMD/assets/108528279/b21c5c23-5fdf-428c-96c8-9d36c94a1c06)# Deep Dive: SIMD programming project
 ## Group 5 Members
 - CAI, Edison B.
 - DEQUICO, Beverly Joyce P.
@@ -14,18 +14,18 @@
 #### ii.) comparative table of execution time as well as analysis of the performance of different kernels (how many times faster, why is it faster, etc.)
 | Array Size    | Method        | Average Time | Times faster than C | Times faster than Non-SIMD | Times faster than SIMD XMM | Times faster than SIMD YMM |
 |     :---:     | :---:         | :---:        | :---:               | :---:                      | :---:                      | :---:                      |
-| 2^20          | C             |              | **-**                   |                            |                            |                            |
-|               | Non-SIMD      |              |                     | **-**                          |                            |                            |
-|               | SIMD XMM      |              |                     |                            | **-**                          |                            |
-|               | SIMD YMM      |              |                     |                            |                            | **-**                          |
-| 2^26          | C             |              | **-**                   |                            |                            |                            |
-|               | Non-SIMD      |              |                     | **-**                          |                            |                            |
-|               | SIMD XMM      |              |                     |                            | **-**                          |                            |
-|               | SIMD YMM      |              |                     |                            |                            | **-**                          |
-| 2^30          | C             |              | **-**                   |                            |                            |                            |
-|               | Non-SIMD      |              |                     | **-**                          |                            |                            |
-|               | SIMD XMM      |              |                     |                            | **-**                          |                            |
-|               | SIMD YMM      |              |                     |                            |                            | **-**                          |
+| 2^20          | C             | 4.502713 ms  | **-**                   |                            |                            |                            |
+|               | Non-SIMD      | 2.256923 ms  |                     | **-**                          |                            |                            |
+|               | SIMD XMM      | 0.818280  ms  |                     |                            | **-**                          |                            |
+|               | SIMD YMM      | 0.483967 ms  |                     |                            |                            | **-**                          |
+| 2^26          | C             | 255.368430 ms  | **-**                   |                            |                            |                            |
+|               | Non-SIMD      | 70.931690 ms |                     | **-**                          |                            |                            |
+|               | SIMD XMM      | 49.222237 ms  |                     |                            | **-**                          |                            |
+|               | SIMD YMM      | 53.066987 ms |                     |                            |                            | **-**                          |
+| 2^30          | C             | 4585.426280 ms | **-**                   |                            |                            |                            |
+|               | Non-SIMD      | 1448.693463 ms |                     | **-**                          |                            |                            |
+|               | SIMD XMM      | 1103.127543 ms |                     |                            | **-**                          |                            |
+|               | SIMD YMM      | 981.895367 ms |                     |                            |                            | **-**                          |
 | 2^31          | C             |              | **-**                   |                            |                            |                            |
 |               | Non-SIMD      |              |                     | **-**                          |                            |                            |
 |               | SIMD XMM      |              |                     |                            | **-**                          |                            |
