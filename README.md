@@ -1,4 +1,4 @@
-![image](https://github.com/XSverdar/Group5_SIMD/assets/108528279/b21c5c23-5fdf-428c-96c8-9d36c94a1c06)# Deep Dive: SIMD programming project
+# Deep Dive: SIMD programming project
 ## Group 5 Members
 - CAI, Edison B.
 - DEQUICO, Beverly Joyce P.
